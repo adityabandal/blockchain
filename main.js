@@ -7,6 +7,7 @@ class Block {
         this.data = data;
         this.previoushash = previoushash;
         this.hash = this.calculateHash();
+        this.nonce = 0;
     }
 
     calculateHash() {
@@ -14,14 +15,27 @@ class Block {
             this.index +
                 this.timestamp +
                 this.previoushash +
+                this.nonce +
                 JSON.stringify(this.data)
         ).toString();
+    }
+    mineBlock(difficulty) {
+        while (
+            this.hash.substring(0, difficulty) !==
+            Array(difficulty + 1).join("0")
+        ) {
+            this.nonce++;
+            this.hash = this.calculateHash();
+        }
+
+        console.log("Block mined: " + this.hash);
     }
 }
 
 class Blockchain {
     constructor() {
         this.chain = [this.createGenesisBlock()];
+        this.difficulty = 4;
     }
 
     createGenesisBlock() {
@@ -34,7 +48,8 @@ class Blockchain {
 
     addBlock(newBlock) {
         newBlock.previoushash = this.getLatestBlock().hash;
-        newBlock.hash = newBlock.calculateHash();
+        // newBlock.hash = newBlock.calculateHash();
+        newBlock.mineBlock(this.difficulty);
         this.chain.push(newBlock);
     }
 
@@ -57,14 +72,17 @@ class Blockchain {
 }
 
 let adityacoin = new Blockchain();
+console.log("Mining block 1...");
 adityacoin.addBlock(new Block(1, "30/04/2021", { amount: 4 }));
+console.log("Mining block 2...");
 adityacoin.addBlock(new Block(2, "30/04/2021", { amount: 41 }));
+console.log("Mining block 3...");
 adityacoin.addBlock(new Block(3, "30/04/2021", { amount: 17 }));
 
-console.log("Is blockchain valid? " + adityacoin.isChainValid());
+// console.log("Is blockchain valid? " + adityacoin.isChainValid());
 
-adityacoin.chain[1].data = { amount: 100 };
-adityacoin.chain[1].hash = adityacoin.chain[1].calculateHash();
+// adityacoin.chain[3].data = { amount: 100 };
+// adityacoin.chain[3].hash = adityacoin.chain[3].calculateHash();
 
-console.log("Is blockchain valid? " + adityacoin.isChainValid());
+// console.log("Is blockchain valid? " + adityacoin.isChainValid());
 // console.log(JSON.stringify(adityacoin, null, 4));
