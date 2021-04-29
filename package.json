@@ -1,0 +1,28 @@
+{
+  "name": "blockchain",
+  "version": "1.0.0",
+  "description": "blockchain implemented in JS",
+  "main": "src/blockchain.js",
+  "dependencies": {
+    "crypto-js": "^4.0.0",
+    "elliptic": "^6.5.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adityabandal/blockchain.git"
+  },
+  "keywords": [
+    "blockchain",
+    "js"
+  ],
+  "author": "adityabandal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adityabandal/blockchain/issues"
+  },
+  "homepage": "https://github.com/adityabandal/blockchain#readme"
+}
