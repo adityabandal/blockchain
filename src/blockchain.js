@@ -85,7 +85,7 @@ class Blockchain {
     }
 
     createGenesisBlock() {
-        return new Block("27/04/2021", [], "0");
+        return new Block(Date.now(), [], "0");
     }
 
     getLatestBlock() {
