@@ -7,6 +7,7 @@ class Transaction {
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
         this.amount = amount;
+        this.timestamp = Date.now();
     }
 
     calculateHash() {
@@ -123,7 +124,21 @@ class Blockchain {
 
         this.pendingTransactions.push(transaction);
     }
+    getAllTransactionsOfAddress(address) {
+        let transactions = [];
 
+        for (const block of this.chain) {
+            for (const trans of block.transactions) {
+                if (trans.fromAddress == address) {
+                    transactions.push(trans);
+                } else if (trans.toAddress == address) {
+                    transactions.push(trans);
+                }
+            }
+        }
+
+        return transactions;
+    }
     getBalanceofAddress(address) {
         let balance = 0;
 
@@ -164,4 +179,5 @@ class Blockchain {
 }
 
 module.exports.Blockchain = Blockchain;
+module.exports.Transaction = Transaction;
 module.exports.Transaction = Transaction;
